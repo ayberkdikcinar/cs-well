@@ -13,25 +13,25 @@ I kept the project minimal with no unnecessary layers of abstraction (like route
 
 In addition to handling the core functionality, I have implemented the following:
 
-- Custom Errors: I've added custom error handling to ensure that invalid requests or unexpected scenarios are handled gracefully. This helps in providing meaningful error responses to the client while avoiding application crashes.
+- **Custom Errors:** I've added custom error handling to ensure that invalid requests or unexpected scenarios are handled gracefully. This helps in providing meaningful error responses to the client while avoiding application crashes.
 
-- Input Validation using express-validator: To ensure the integrity of data submitted to the server, I used express-validator to validate inputs (e.g., ensuring that the /input endpoint receives a non-empty string). This approach guarantees that the server only processes valid data.
+- **Input Validation using express-validator:** To ensure the integrity of data submitted to the server, I used express-validator to validate inputs (e.g., ensuring that the /input endpoint receives a non-empty string). This approach guarantees that the server only processes valid data.
 
-- Logging with winston: I used the winston logging library for structured logging. This ensures that important events (such as incoming requests and errors) are logged properly, aiding in debugging and monitoring the system in production.
+- **Logging with winston:** I used the winston logging library for structured logging. This ensures that important events (such as incoming requests and errors) are logged properly, aiding in debugging and monitoring the system in production.
 
 > [!CAUTION]
 > This approach is ideal for the purpose of the assignment, but for a production-level application, there are several optimizations that could be implemented, which I will detail later.
 
 #### Endpoints
 
-**POST /input**
-• Description: Accepts a plain text string as the key in the request body and stores it in memory.
-• Body: Plain text (key).
-• Response: 200 OK.
-**GET /query**
-• Description: Accepts a query parameter key and checks how many times it has been submitted through the /input endpoint.
-• Query Parameter: key (required).
-• Response: Returns the count as number. If the key has never been submitted, returns 0.
+- **POST /input**
+  • Description: Accepts a plain text string as the key in the request body and stores it in memory.
+  • Body: Plain text (key).
+  • Response: 200 OK.
+- **GET /query**
+  • Description: Accepts a query parameter key and checks how many times it has been submitted through the /input endpoint.
+  • Query Parameter: key (required).
+  • Response: Returns the count as number. If the key has never been submitted, returns 0.
 
 ### Why I Chose This Approach
 
@@ -42,16 +42,16 @@ In addition to handling the core functionality, I have implemented the following
 
 While the current implementation is suitable for this assignment, a production-level application should be designed to handle larger workloads,and scaling. Below are some thoughts on how the service could be enhanced:
 
-1. Persistent Storage:
+1. **Persistent Storage:**
    Currently, the keys are stored in memory, which means they are lost when the server restarts. For a production environment, a more reliable storage solution is necessary. For production, I would store the keys and their counts in a Redis database. Redis is ideal for high-performance key-value storage and can scale horizontally. Using Redis' sorted sets would allow for efficient counting of keys.
 
-2. Clustering:
+2. **Clustering:**
    Node.js runs on a single-threaded event loop, which can be a bottleneck on multi-core machines. To take full advantage of multi-core CPUs, I would implement clustering. This allows the service to handle a much larger volume of concurrent connections.
 
-3. Request Rate Limiting:
+3. **Request Rate Limiting:**
    To protect the service from being overwhelmed by too many requests, I would implement rate limiting. Libraries such as express-rate-limit can be used to limit the number of requests from a single client within a specific time frame.
 
-4. API Versioning:
+4. **API Versioning:**
    As the service evolves, future changes may require backward compatibility. Implementing API versioning would help in maintaining older versions of the service while introducing new features.
 
 ## Conclusion
