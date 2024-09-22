@@ -4,8 +4,9 @@ import { InputRouter } from './routes/input';
 import { QueryRouter } from './routes/query';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
-import { logger } from './services/logger';
+import { logger } from './config/logger';
 import expressWinston from 'express-winston';
+import { setupSwagger } from './config/swagger';
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(expressWinston.logger({
 app.use(json());
 app.use(QueryRouter);
 app.use(InputRouter);
+
+setupSwagger(app);
 
 app.all('*', (req: Request, res: Response) => {
   logger.warn(`Route not found: ${req.originalUrl}`);

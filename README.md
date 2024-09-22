@@ -4,6 +4,7 @@ This project implements a simple long-lived HTTP server in Node.js. The server l
 
 - POST /input: Accepts a plain text key in the request body and stores it in memory.
 - GET /query: Accepts a query string parameter key, checks if the key has been submitted before, and returns the count of how many times it has been seen.
+- GET /api-docs Points to the swagger documentation for easy testing.
 
 The goal of this project is to demonstrate handling concurrent HTTP requests efficiently without over-engineering, while keeping the code simple, clear, and functional.
 

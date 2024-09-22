@@ -6,7 +6,7 @@ import { MAX_KEY_LENGTH, validationMessages } from '../constants/validation-mess
 import { formatKey } from '../utils/format-key';
 
 const router = Router();
-
+ 
 router.get(
   '/query',
   query('key')
